@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+
+  logistics-app:
+    build: .
+    container_name: logistics-app
+    restart: always
+    ports:
+      - "127.0.0.1:3015:3000"
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://postgres:postgres@logistics-db:5432/logistics_poc
+      - N8N_WEBHOOK_URL=http://172.17.0.1:5679/webhook-test/bc-job-created 
+      - WEBHOOK_SECRET=supersecret
+    depends_on:
+      - logistics-db
+    networks:
+      - logistics-network
+
+  logistics-db:
+    image: postgres:14
+    container_name: logistics-db
+    restart: always
+    environment:
+      POSTGRES_DB: logistics_poc
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - logistics_pgdata:/var/lib/postgresql/data
+    networks:
+      - logistics-network
+
+networks:
+  logistics-network:
+
+volumes:
+  logistics_pgdata:
+
