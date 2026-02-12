@@ -1,74 +1,98 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Logistics POC</title>
+  <meta charset="UTF-8">
+  <title>Logistics Job Console</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+
   <header>
-    <h1>Logistics Job Console</h1>
+    <h1><i class="fas fa-truck-loading"></i> Logistics Job Console</h1>
   </header>
 
-    <h2>Create Job</h2>
+  <main>
+    <section class="form-section">
+      <h2>Create New Logistics Job</h2>
+      <form id="jobForm">
+        <div class="form-grid">
+          <div class="input-group">
+            <label>BC Job Number</label>
+            <input name="bc_job_number" placeholder="e.g. JOB-1001" required />
+          </div>
+          <div class="input-group">
+            <label>BC Job ID</label>
+            <input name="bc_job_id" placeholder="System ID" required />
+          </div>
+          <div class="input-group">
+            <label>Customer Name</label>
+            <input name="customer_name" required />
+          </div>
+          <div class="input-group">
+            <label>Customer Number</label>
+            <input name="customer_number" required />
+          </div>
+          <div class="input-group">
+            <label>Mine (Origin)</label>
+            <input name="mine_location" required />
+          </div>
+          <div class="input-group">
+            <label>Destination</label>
+            <input name="destination_location" required />
+          </div>
+          <div class="input-group">
+            <label>Commodity</label>
+            <input name="commodity" placeholder="e.g. Coal, Iron Ore" required />
+          </div>
+          <div class="input-group">
+            <label>Scheduled Date</label>
+            <input type="datetime-local" name="scheduled_date" required />
+          </div>
+          <div class="input-group">
+            <label>Assigned Driver</label>
+            <select name="assigned_driver_id" id="driverSelect" required>
+              <option value="">Select Driver</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Vehicle registration</label>
+            <select name="assigned_vehicle_id" id="vehicleSelect" required>
+              <option value="">Select Vehicle</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label>Created By</label>
+            <input name="created_by" required />
+          </div>
+        </div>
+        <button type="submit"><i class="fas fa-plus"></i> Create Job</button>
+      </form>
+    </section>
 
-    <form id="jobForm">
+    <section>
+      <h2>Active & Recent Jobs</h2>
+      <div class="table-container">
+        <table id="jobsTable">
+          <thead>
+            <tr>
+              <th>Job #</th>
+              <th>Customer</th>
+              <th>Route</th>
+              <th>Commodity</th>
+              <th>Logistics</th>
+              <th>Status</th>
+              <th>Compliance</th>
+              <th>Billing</th>
+            </tr>
+          </thead>
+          <tbody>
+            </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
-    <div class="form-grid">
-      
-      <input name="bc_job_number" placeholder="BC Job Number" required />
-      <input name="bc_job_id" placeholder="BC Job ID" required />
-
-      <input name="customer_name" placeholder="Customer Name" required />
-      <input name="customer_number" placeholder="Customer Number" required />
-
-      <input name="mine_location" placeholder="Mine Location" required />
-      <input name="destination_location" placeholder="Destination Location" required />
-
-      <input name="commodity" placeholder="Commodity" required />
-
-      <select name="assigned_driver_id" id="driverSelect" required>
-        <option value="">Select Driver</option>
-      </select>
-
-      <select name="assigned_vehicle_id" id="vehicleSelect" required>
-        <option value="">Select Vehicle</option>
-      </select>
-
-      <input type="datetime-local" name="scheduled_date" required />
-      <input name="created_by" placeholder="Created By" required />
-
-    </div>
-
-    <button type="submit">Create Job</button>
-
-    </form>
-  </section>
-
-
-  <section>
-    <h2>Jobs</h2>
-    <table id="jobsTable">
-      <thead>
-        <tr>
-         <th>BC Job #</th>
-         <th>Customer</th>
-         <th>Mine</th>
-         <th>Destination</th>
-         <th>Commodity</th>
-         <th>Driver</th>
-         <th>Vehicle</th>
-         <th>Job Status</th>
-         <th>Compliance</th>
-         <th>POD</th>
-        <th>Invoice</th>
-       </tr>
-     </thead>
-
-      <tbody></tbody>
-    </table>
-  </section>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
