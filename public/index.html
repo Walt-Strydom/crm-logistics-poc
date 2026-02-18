@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logistics CRM - Job Management</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230078d4' width='100' height='100'/><text y='75' font-size='70' fill='white' font-family='Segoe UI,sans-serif'>C</text></svg>">
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <div class="app-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <h1 class="app-title">Logistics CRM</h1>
+        <div class="nav-divider"></div>
+        <span class="nav-section">Job Management</span>
+      </div>
+      <div class="nav-right">
+        <button class="icon-btn" id="refreshBtn" title="Refresh">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+        </button>
+        <button class="icon-btn" id="helpBtn" title="Help">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+        </button>
+        <div class="user-profile">
+          <div class="user-avatar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Command Bar -->
+  <div class="command-bar">
+    <div class="command-container">
+      <button class="primary-btn" id="newJobBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        New Job
+      </button>
+      <div class="btn-divider"></div>
+      <button class="secondary-btn" id="exportBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Export
+      </button>
+      <button class="secondary-btn" id="filterBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+        </svg>
+        Filter
+      </button>
+      
+      <div class="command-right">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search jobs..." />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Stats Cards -->
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-card">
+        <div class="stat-icon stat-blue">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value" id="totalJobs">0</div>
+          <div class="stat-label">Total Jobs</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon stat-green">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value" id="completedJobs">0</div>
+          <div class="stat-label">Completed</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon stat-orange">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value" id="inProgressJobs">0</div>
+          <div class="stat-label">In Progress</div>
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-icon stat-purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-13v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-value" id="draftJobs">0</div>
+          <div class="stat-label">Pending</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Jobs Grid -->
+    <div class="grid-card">
+      <div class="grid-header">
+        <h2 class="grid-title">Active Jobs</h2>
+        <div class="grid-actions">
+          <select class="view-select" id="viewSelect">
+            <option value="all">All Jobs</option>
+            <option value="pending">Pending Assignment</option>
+            <option value="draft">Draft</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="grid-container">
+        <table class="data-grid" id="jobsTable">
+          <thead>
+            <tr>
+              <th class="sortable" data-sort="job_code">
+                <div class="th-content">
+                  Job Code
+                  <svg class="sort-icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                    <path d="M6 3l4 4H2z"/>
+                  </svg>
+                </div>
+              </th>
+              <th class="sortable" data-sort="commodity">
+                <div class="th-content">Commodity</div>
+              </th>
+              <th class="sortable" data-sort="mine">
+                <div class="th-content">Mine</div>
+              </th>
+              <th class="sortable" data-sort="delivery_site">
+                <div class="th-content">Delivery Site</div>
+              </th>
+              <th class="sortable" data-sort="driver">
+                <div class="th-content">Driver</div>
+              </th>
+              <th class="sortable" data-sort="vehicle">
+                <div class="th-content">Vehicle</div>
+              </th>
+              <th class="sortable" data-sort="load_weight">
+                <div class="th-content">Weight (tons)</div>
+              </th>
+              <th class="sortable" data-sort="scheduled_collection">
+                <div class="th-content">Scheduled</div>
+              </th>
+              <th>
+                <div class="th-content">Status</div>
+              </th>
+              <th class="actions-col">
+                <div class="th-content">Actions</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="jobsTableBody">
+            <!-- Populated by JavaScript -->
+          </tbody>
+        </table>
+        
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="9" x2="15" y2="9"></line>
+            <line x1="9" y1="15" x2="15" y2="15"></line>
+          </svg>
+          <h3>No jobs found</h3>
+          <p>Create your first job to get started</p>
+          <button class="primary-btn" onclick="openJobForm()">Create Job</button>
+        </div>
+      </div>
+      
+      <div class="grid-footer">
+        <div class="footer-info">
+          <span id="recordCount">0 items</span>
+        </div>
+        <div class="pagination">
+          <button class="page-btn" id="prevPage" disabled>Previous</button>
+          <span class="page-info" id="pageInfo">Page 1 of 1</span>
+          <button class="page-btn" id="nextPage" disabled>Next</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Job Form Modal (Dynamics 365 style side panel) -->
+  <div class="side-panel" id="jobFormPanel">
+    <div class="panel-overlay" onclick="closeJobForm()"></div>
+    <div class="panel-content">
+      <div class="panel-header">
+        <h2 id="formTitle">New Job</h2>
+        <button class="close-btn" onclick="closeJobForm()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <form id="jobForm" class="panel-form">
+
+  <!-- ========================= -->
+  <!-- General Information       -->
+  <!-- ========================= -->
+  <div class="form-section">
+    <h3 class="section-title">General Information</h3>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="customer_name">Customer Name <span class="required">*</span></label>
+        <input type="text" id="customer_name" name="customer_name" placeholder="Enter customer name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="customer_number">Customer Number <span class="required">*</span></label>
+        <input type="text" id="customer_number" name="customer_number" placeholder="Enter customer number" required />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="commodity">Commodity <span class="required">*</span></label>
+      <select id="commodity" name="commodity" required>
+        <option value="">Select commodity...</option>
+        <option value="Coal">Coal</option>
+        <option value="Chrome">Chrome</option>
+        <option value="Iron Ore">Iron Ore</option>
+        <option value="Manganese">Manganese</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="load_weight">Load Weight (tons) <span class="required">*</span></label>
+        <input type="number" id="load_weight" name="mine_weight_nett" placeholder="0.00" step="0.01" min="0" required />
+      </div>
+
+      <div class="form-group">
+        <label for="scheduled_collection">Scheduled Collection <span class="required">*</span></label>
+        <input type="date" id="scheduled_collection" name="scheduled_date" required />
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================= -->
+  <!-- Location Details          -->
+  <!-- ========================= -->
+  <div class="form-section">
+    <h3 class="section-title">Location Details</h3>
+
+    <div class="form-group">
+      <label for="mine">Pickup Location (Mine) <span class="required">*</span></label>
+      <input type="text" id="mine" name="mine_location" placeholder="Enter mine location" required />
+    </div>
+
+    <div class="form-group">
+      <label for="delivery_site">Delivery Location <span class="required">*</span></label>
+      <input type="text" id="delivery_site" name="destination_location" placeholder="Enter delivery location" required />
+    </div>
+  </div>
+
+        <!-- Assignment removed - handled by n8n workflow -->
+        
+        <div class="form-actions">
+          <button type="button" class="secondary-btn" onclick="closeJobForm()">Cancel</button>
+          <button type="submit" class="primary-btn" id="submitBtn">
+            <span class="btn-text">Create Job</span>
+            <span class="btn-loader" style="display: none;">
+              <svg class="spinner" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <circle cx="12" cy="12" r="10" opacity="0.25"></circle>
+                <path d="M12 2a10 10 0 0 1 10 10" opacity="0.75"></path>
+              </svg>
+            </span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <div class="toast-icon" id="toastIcon"></div>
+    <div class="toast-content">
+      <div class="toast-title" id="toastTitle">Success</div>
+      <div class="toast-message" id="toastMessage">Job created successfully</div>
+    </div>
+    <button class="toast-close" onclick="hideToast()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
